@@ -1,3 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+
+<%@page import="com.alkenewwallet.model.TransaccionModel"%>
+<%@page import="java.util.List"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +13,9 @@
     <title>Transacciones</title>
 </head>
 <body>
+<%
+	List<TransaccionModel> tabla = (List) request.getAttribute("movimientos");					
+	%>
    <header>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
@@ -39,33 +47,31 @@
    </header> 
    <main>
     <h1>Transacciones</h1>
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Fecha</th>
-          <th scope="col">Descripción</th>
-          <th scope="col">Cantidad</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>2023-10-01</td>
-          <td>Compra en tienda online</td>
-          <td>$500.00</td>
-        </tr>
-        <tr>
-          <td>2023-10-05</td>
-          <td>Depósito de salario</td>
-          <td>$1500.00</td>
-        </tr>
-        <tr>
-          <td>2023-10-10</td>
-          <td>Pago de factura de servicios</td>
-          <td>-$200.00</td>
-        </tr>
-        <!-- Puedes agregar más filas según sea necesario -->
-      </tbody>
-    </table>
+    <br>
+					<table class="table table-hover  table-striped" id="TablaSendMoney">
+						<thead class="table-light">
+							<tr>
+								<th scope="col">Usuario Envia</th>
+								<th scope="col">Usuario Recibe</th>
+								<th scope="col">Saldo</th>
+								<th scope="col">Fecha</th>
+								
+							</tr>
+						</thead>
+						<tbody>
+						<%
+							for (int i = 0; i < tabla.size(); i++) {
+								out.print("<tr>" + ""
+								+"<td>" + tabla.get(i).getUsuariosender().getNombre() + "</td>"		
+								+"<td>" + tabla.get(i).getUsuarioreceiver().getNombre() + "</td>"		
+								+"<td>" + tabla.get(i).getImporte() + "</td>"	
+								+"<td>" + tabla.get(i).getTransacciondate() + "</td>"	
+																		
+								+"</tr>");
+							}
+						%>
+						</tbody>
+					</table>
    </main>
    <footer></footer>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

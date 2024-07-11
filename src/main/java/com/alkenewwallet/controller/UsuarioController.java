@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.alkenewwallet.model.ClienteModel;
+import com.alkenewwallet.model.CuentaModel;
 import com.alkenewwallet.model.UsuarioModel;
 import com.alkenewwallet.repository.ClienteRepository;
+import com.alkenewwallet.repository.CuentaRepository;
 import com.alkenewwallet.repository.UsuarioRepository;
 
 @Controller
@@ -28,11 +30,14 @@ public class UsuarioController {
 
 	@Autowired
 	private ClienteRepository clienteR;
+	
+	@Autowired
+	CuentaRepository cuentaR;
 
 	@PostMapping("/nuevo")
 	public String crearUsuario(@RequestParam String nombre1, @RequestParam String nombre2,
 			@RequestParam String apellidopaterno, @RequestParam String apellidomaterno, @RequestParam String email,
-			@RequestParam String run_cliente, @RequestParam String password) {
+			@RequestParam String run_cliente, @RequestParam String password , @RequestParam String banco, @RequestParam Integer numcuenta) {
 
 		ClienteModel cliente = new ClienteModel();
 		cliente.setRun_cliente(run_cliente);
@@ -40,8 +45,16 @@ public class UsuarioController {
 		cliente.setNombre2(nombre2);
 		cliente.setApellidopaterno(apellidopaterno);
 		cliente.setApellidomaterno(apellidomaterno);
-
+		
 		clienteR.save(cliente);
+		
+		CuentaModel cuenta = new CuentaModel();
+		cuenta.setBanco(banco);
+		cuenta.setNumcuenta(numcuenta);
+		cuenta.setSaldo(0);
+		cuenta.setCliente(cliente);
+		cuentaR.save(cuenta);
+		
 
 		UsuarioModel usuario = new UsuarioModel();
 		usuario.setNombre(nombre1 + " " + nombre2 + " " + apellidopaterno + " " + apellidomaterno);

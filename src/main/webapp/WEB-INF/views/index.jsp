@@ -48,7 +48,7 @@
                         <input type="text" id="run_cliente" name="run_cliente" placeholder="Run">
                         <input type="password" id="password" name="password" placeholder="Contraseña">
                         <input type="text" id="banco" name="banco" placeholder="Nombre de Banco">
-                        <input type="text" id="numcuenta" name="numcuenta" placeholder="Numero de Cuenta">
+                        <input type="number" id="numcuenta" name="numcuenta" placeholder="Numero de Cuenta">
                         <button type="submit">Regístrarse</button>
                     </form>
                 </div>
